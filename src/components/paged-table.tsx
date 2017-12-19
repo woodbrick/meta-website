@@ -14,14 +14,14 @@ class PagedSyncTable extends React.Component<any, any> {
     let {pageStore} = this.props;
     return (
       <div>
-          <Table columns={pageStore.cols} dataSource={pageStore.rows} onChange={this.handleChange} />
-          <Pagination 
-            defaultCurrent={1}
-            total={pageStore.total} 
-            pageSize={pageStore.pageSize}
-            onChange={pageStore.changePage}
-            onShowSizeChange={pageStore.changePageSize}
-          />
+        <Table columns={pageStore.cols} dataSource={pageStore.rows} onChange={this.handleChange} />
+        <Pagination 
+          defaultCurrent={1}
+          total={pageStore.total} 
+          pageSize={pageStore.pageSize}
+          onChange={pageStore.changePage}
+          onShowSizeChange={pageStore.changePageSize}
+        />
       </div>
     );
   } // render
