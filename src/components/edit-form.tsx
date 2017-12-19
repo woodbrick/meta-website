@@ -1,34 +1,28 @@
 import * as React from 'react';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import { observer, inject } from 'mobx-react';
 
 @inject('pageStore')
 @observer
 class EditForm extends React.Component<any, any> {
-  state = { visible: false };
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
+  constructor(props: any) {
+    super(props);
+    this.handleOk = this.handleOk.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
   handleOk = (e: any) => {
-    this.setState({
-      visible: false,
-    });
+    this.props.pageStore.showModal(false);
   }
   handleCancel = (e: any) => {
-    this.setState({
-      visible: false,
-    });
+    this.props.pageStore.showModal(false);
   }
   render() {
     let { pageStore } = this.props;
     return (
       <div>
-        <Button type="primary" onClick={pageStore.showModal}>Open</Button>
         <Modal
           title="Basic Modal"
-          visible={pageStore.visible}
+          visible={pageStore.modalShow}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >

@@ -44,8 +44,8 @@ class TablePageStore {
     });
   }
   @action.bound
-  showModal() {
-    this.modalShow = true;
+  showModal(isShow: boolean = true) {
+    this.modalShow = isShow;
   }
   @action.bound
   changePageSize(current: number, pageSize: number) {

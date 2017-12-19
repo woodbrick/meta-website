@@ -1,8 +1,7 @@
 
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { Table } from 'antd';
-import { Pagination } from 'antd';
+import { Table, Pagination } from 'antd';
 
 @inject('pageStore')
 @observer
@@ -14,7 +13,13 @@ class PagedSyncTable extends React.Component<any, any> {
     let {pageStore} = this.props;
     return (
       <div>
-        <Table columns={pageStore.cols} dataSource={pageStore.rows} onChange={this.handleChange} pagination={false} />
+        <Table 
+          columns={pageStore.cols} 
+          dataSource={pageStore.rows} 
+          onChange={this.handleChange} 
+          pagination={false} 
+          rowKey="id"
+        />
         <Pagination 
           defaultCurrent={1}
           total={pageStore.total} 

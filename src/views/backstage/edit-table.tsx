@@ -4,6 +4,7 @@ import PagedTable from '../../components/paged-table';
 import { pageStore } from '../../components/stores';
 import { Model, Field } from '../../models';
 import EditForm from '../../components/edit-form';
+import { Button } from 'antd';
 
 let id = 0;
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
@@ -66,9 +67,11 @@ class EditTable extends React.Component<EditTableProps, any> {
     return (
       <Provider pageStore={pageStore}>
       <div>
-          <div> {name} </div>
-          <PagedTable />
-          <EditForm />
+        <div> {name} </div>
+        <PagedTable />
+        
+        <Button type="primary" onClick={pageStore.showModal}>Open</Button>
+        <EditForm />
       </div>
       </Provider>
     );
