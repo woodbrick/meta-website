@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Provider } from 'mobx-react';
 import PagedTable from '../../components/paged-table';
-import { pageStore } from './stores';
+import { pageStore } from '../../components/stores';
+import { Model, Field } from '../../models';
 
 let id = 0;
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
@@ -44,14 +45,18 @@ pageStore.loadRows = () => {
 pageStore.changePage(1);
 
 const uppercaseFirst = (str: string) => 
-  str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+  str.toLowerCase().replace(/\b[a-z]/g, function(letter: string) {
     return letter.toUpperCase();
   });
-class EditTable extends React.Component<any, any> {
+
+interface EditTableProps {
+  model: Model;
+}
+class EditTable extends React.Component<EditTableProps, any> {
   componentWillMount() {
-    let {Model} : {Model: any} = this.props;
+    let {model}: {model: Model} = this.props;
     let cols: Array<any> = [];
-    Model.fields.forEach((value: any, key: string) => {
+    model.fields.forEach((value: Field, key: string) => {
       let suffix = value.unit ? `(${value.unit})` : '';
       cols.push({
         title: `${uppercaseFirst(key)} ${suffix}`,
@@ -64,8 +69,8 @@ class EditTable extends React.Component<any, any> {
     });
   }
   render() {
-    let {Model} = this.props;
-    let name = Model.name;
+    let {model} = this.props;
+    let name = model.name;
     return (
       <Provider pageStore={pageStore}>
       <div>

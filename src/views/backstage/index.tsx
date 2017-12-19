@@ -1,6 +1,6 @@
 import './index.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import { Route, Link, Switch, RouteComponentProps } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import * as React from 'react';
 import EditTable from './edit-table';
 import ModelIssue from '../../models/issue';
@@ -40,7 +40,7 @@ let menuArr = [{
   title: 'folders',
   icon: 'folder',
   route: '/backstage/folder'
-}]
+}];
 class Backstage extends React.Component {
   render() {
     return (
@@ -91,7 +91,7 @@ class Backstage extends React.Component {
             </Breadcrumb>
             <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
               <Switch>
-                <Route path="/backstage/issue" component={() => <EditTable Model={ModelIssue} />}/>
+                <Route path="/backstage/issue" component={() => <EditTable model={ModelIssue} />}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Content>
@@ -101,7 +101,7 @@ class Backstage extends React.Component {
     );
   }
 }
-const NoMatch = ({ location }: {location: RouteComponentProps<{}>}) => (
+const NoMatch = ({ location }: {location: any}) => (
   <div>
     <h3>No match for <code>{location.pathname}</code></h3>
   </div>

@@ -47,6 +47,5 @@ class TablePageStore {
     throw `changePageSize not defined! ${current}, ${pageSize}`;
   }
 }
-
 const pageStore = new TablePageStore();
-export {pageStore};
+export {pageStore, TablePageStore};
