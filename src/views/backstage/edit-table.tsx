@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react';
 import PagedTable from '../../components/paged-table';
 import { pageStore } from '../../components/stores';
 import { Model, Field } from '../../models';
+import EditForm from '../../components/edit-form';
 
 let id = 0;
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
@@ -23,15 +24,6 @@ const rows = [
   createData('Gingerbread2', 356, 16.0, 49, 3.9),
 ];
 
-// let cols = [
-//   {title: 'Dessert (100g serving)', prop: 'name', numeric: false},
-//   {title: 'Calories', prop: 'calories', numeric: true},
-//   {title: 'Fat (g)', prop: 'fat', numeric: true},
-//   {title: 'Carbs (g)', prop: 'carbs', numeric: true},
-//   {title: 'Protein (g)', prop: 'protein', numeric: true}
-// ];
-
-// pageStore.cols = cols;
 pageStore.loadRows = () => {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -76,6 +68,7 @@ class EditTable extends React.Component<EditTableProps, any> {
       <div>
           <div> {name} </div>
           <PagedTable />
+          <EditForm />
       </div>
       </Provider>
     );

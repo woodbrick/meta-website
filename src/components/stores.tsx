@@ -9,6 +9,7 @@ class TablePageStore {
   @observable _rows: {}[] = [];
   @observable _cols: {}[] = [];
   @observable total = 10;
+  @observable modalShow= false;
   @computed get rows() {
     return [...this._rows];
   }
@@ -41,6 +42,10 @@ class TablePageStore {
     .then(res => {
       this.updateData(res);
     });
+  }
+  @action.bound
+  showModal() {
+    this.modalShow = true;
   }
   @action.bound
   changePageSize(current: number, pageSize: number) {

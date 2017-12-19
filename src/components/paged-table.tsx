@@ -14,7 +14,7 @@ class PagedSyncTable extends React.Component<any, any> {
     let {pageStore} = this.props;
     return (
       <div>
-        <Table columns={pageStore.cols} dataSource={pageStore.rows} onChange={this.handleChange} />
+        <Table columns={pageStore.cols} dataSource={pageStore.rows} onChange={this.handleChange} pagination={false} />
         <Pagination 
           defaultCurrent={1}
           total={pageStore.total} 
