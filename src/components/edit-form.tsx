@@ -11,10 +11,10 @@ class EditForm extends React.Component<any, any> {
     this.handleCancel = this.handleCancel.bind(this);
   }
   handleOk = (e: any) => {
-    this.props.pageStore.showModal(false);
+    this.props.pageStore.showModal(e, false);
   }
   handleCancel = (e: any) => {
-    this.props.pageStore.showModal(false);
+    this.props.pageStore.showModal(e, false);
   }
   render() {
     let { pageStore } = this.props;

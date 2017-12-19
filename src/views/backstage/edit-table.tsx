@@ -58,8 +58,19 @@ class EditTable extends React.Component<EditTableProps, any> {
         onFilter: (filterKey: string, record: any) => record[key].includes(filterKey),
         sorter: (a: {}, b: {}) => a[key] - b[key],
       });
-      pageStore.cols = cols;
     });
+    cols.push({
+      title: 'Action',
+      dataIndex: 'operation',
+      key: 'operation',
+      render: () => (
+        <span className="table-operation">
+          <a href="#">Pause</a>
+          <a href="#">Stop</a>
+        </span>
+      )
+    });
+    pageStore.cols = cols;
   }
   render() {
     let {model} = this.props;
@@ -69,7 +80,6 @@ class EditTable extends React.Component<EditTableProps, any> {
       <div>
         <div> {name} </div>
         <PagedTable />
-        
         <Button type="primary" onClick={pageStore.showModal}>Open</Button>
         <EditForm />
       </div>

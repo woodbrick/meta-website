@@ -44,7 +44,7 @@ class TablePageStore {
     });
   }
   @action.bound
-  showModal(isShow: boolean = true) {
+  showModal(e: any, isShow: boolean = true) {
     this.modalShow = isShow;
   }
   @action.bound
