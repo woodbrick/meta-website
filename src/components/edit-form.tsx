@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal } from 'antd';
+import { Modal, Form, Input } from 'antd';
 import { observer, inject } from 'mobx-react';
 
 @inject('pageStore')
@@ -11,10 +11,10 @@ class EditForm extends React.Component<any, any> {
     this.handleCancel = this.handleCancel.bind(this);
   }
   handleOk = (e: any) => {
-    this.props.pageStore.showModal(e, false);
+    this.props.pageStore.closeModal(e, false);
   }
   handleCancel = (e: any) => {
-    this.props.pageStore.showModal(e, false);
+    this.props.pageStore.closeModal(e, false);
   }
   render() {
     let { pageStore } = this.props;
@@ -26,12 +26,26 @@ class EditForm extends React.Component<any, any> {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <Form>
+            <FormItems data={pageStore.rowData} fields={pageStore.model.fields} />
+          </Form>
         </Modal>
       </div>
     );
   }
+}
+const FormItem = Form.Item;
+function FormItems(props: any) {
+  let { data, fields } = props;
+  let formItems = fields.map((field: any) => (
+    <FormItem label={field.title}>
+      <Input placeholder="placeholder" value={data[field.dataIndex]}/>
+    </FormItem>
+  ));
+  return (
+    <div>
+      {formItems}
+    </div>
+  );
 }
 export default EditForm;
