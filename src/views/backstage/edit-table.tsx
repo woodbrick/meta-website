@@ -41,7 +41,7 @@ class EditTable extends React.Component<EditTableProps, any> {
         key: 'operation',
         render: (text: string, record: any) => (
           <span className="table-operation">
-            <span onClick={pageStore.showModal.bind(null, record)}>Edit</span>
+            <a onClick={pageStore.showModal.bind(null, record)}>Edit</a>
             <Divider type="vertical" />
             <a href="#">Delete</a>
           </span>
