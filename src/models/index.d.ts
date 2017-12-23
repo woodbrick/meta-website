@@ -1,11 +1,13 @@
-import {FieldTypes} from '../components/fields'
-
-export interface Field {
-  type: symbol,
-  unit: string
+export interface BackstageField {
+  title: string,
+  dataIndex: string,
+  sorter?: boolean,
+  render?: Function,
+  [propName: string]: any;
 }
 
-export interface Model {
+export interface BackstageModel {
   name: string,
-  fields: Map<string, Field>
+  fields: BackstageField[],
+  url: string
 }

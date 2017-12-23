@@ -3,7 +3,7 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { Route, Link, Switch } from 'react-router-dom';
 import * as React from 'react';
 import EditTable from './edit-table';
-import ModelIssue from '../../models/issue';
+import { PersonBackstage } from '../../models/person';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -35,12 +35,13 @@ const getMenuList = (arr: Array<MenuItem>) => {
 let menuArr = [{
   title: 'issues',
   icon: 'list',
-  route: '/backstage/issue'
+  route: '/backstage/person'
 }, {
   title: 'folders',
   icon: 'folder',
   route: '/backstage/folder'
 }];
+
 class Backstage extends React.Component {
   render() {
     return (
@@ -91,7 +92,7 @@ class Backstage extends React.Component {
             </Breadcrumb>
             <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
               <Switch>
-                <Route path="/backstage/issue" component={() => <EditTable model={ModelIssue} />}/>
+                <Route path="/backstage/person" component={() => <EditTable model={PersonBackstage} />}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Content>
