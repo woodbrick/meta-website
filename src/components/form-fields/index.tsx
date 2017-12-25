@@ -1,28 +1,85 @@
 import * as React from 'react';
-import { Input } from 'antd';
+import { Input, InputNumber, Select } from 'antd';
 
-interface FormInputProps {
-  value: string|null;
+interface Row {
+  id: number;
+  [propName: string]: any;
+}
+interface Field {
+  propName: string;
   defaultValue?: string;
   suffix?: string;
+  prefix?: string;
   placeholder?: string;
   size?: 'large' | 'default' | 'small';
+  [propName: string]: any;
 }
-class FormInput extends React.Component<FormInputProps, any> {
+interface FormInputProps {
+  row: Row;
+  field: Field;
+}
+class FormInputString extends React.Component<FormInputProps, any> {
   render() {
-    let {value, placeholder, suffix, defaultValue, size} = this.props;
+    let {row, field} = this.props;
+    let value = row[field.propName];
     return (
       <Input 
         value={value}
-        placeholder={placeholder}
+        placeholder={field.placeholder}
+        defaultValue={field.defaultValue}
+        addonBefore={field.prefix}
+        addonAfter={field.suffix}
+        size={field.size}
+      />
+    );
+  }
+}
+class FormInputNumber extends React.Component<FormInputProps, any> {
+  render() {
+    let {row, field} = this.props;
+    let value = row[field.propName];
+    value = parseInt(value, 10) || 0;
+    let defaultValue = parseInt(field.defaultValue || '', 10) || 0;
+    
+    return (
+      <InputNumber 
+        value={value}
+        placeholder={field.placeholder}
         defaultValue={defaultValue}
-        addonAfter={suffix}
-        size={size}
+        formatter={field.formatter}
+        size={field.size}
       />
     );
   }
 }
 
+interface FormSelectProps {
+  options: {}[];
+  field: Field;
+}
+class FormSelect extends React.Component<FormSelectProps, any> {
+  handleChange(value: any) {
+    throw `selected ${value}`;
+  }
+  render() {
+    let {options, field} = this.props;
+    return (
+      <Select
+        showSearch={true}
+        placeholder={field.placeholder}
+        optionFilterProp="children"
+        onChange={this.handleChange}
+        filterOption={(input, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+      >
+        {options.map((entry: any) => (
+          <Select.Option value={entry.key}>{entry.value}</Select.Option>
+        ))}
+      </Select>
+    );
+  }
+}
 export {
-  FormInput
+  FormInputString,
+  FormInputNumber,
+  FormSelect
 };
