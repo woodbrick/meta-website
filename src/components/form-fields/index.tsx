@@ -1,24 +1,8 @@
 import * as React from 'react';
 import { Input, InputNumber, Select } from 'antd';
+import { FieldProps } from '../interface';
 
-interface Row {
-  id: number;
-  [propName: string]: any;
-}
-interface Field {
-  propName: string;
-  defaultValue?: string;
-  suffix?: string;
-  prefix?: string;
-  placeholder?: string;
-  size?: 'large' | 'default' | 'small';
-  [propName: string]: any;
-}
-interface FormInputProps {
-  row: Row;
-  field: Field;
-}
-class FormInputString extends React.Component<FormInputProps, any> {
+class FormInputString extends React.Component<FieldProps, any> {
   render() {
     let {row, field} = this.props;
     let value = row[field.propName];
@@ -34,7 +18,7 @@ class FormInputString extends React.Component<FormInputProps, any> {
     );
   }
 }
-class FormInputNumber extends React.Component<FormInputProps, any> {
+class FormInputNumber extends React.Component<FieldProps, any> {
   render() {
     let {row, field} = this.props;
     let value = row[field.propName];
@@ -53,9 +37,8 @@ class FormInputNumber extends React.Component<FormInputProps, any> {
   }
 }
 
-interface FormSelectProps {
+interface FormSelectProps extends FieldProps {
   options: {}[];
-  field: Field;
 }
 class FormSelect extends React.Component<FormSelectProps, any> {
   handleChange(value: any) {
