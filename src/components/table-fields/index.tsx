@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Rate } from 'antd';
 import { FieldProps } from '../interface';
 
 function TableSpan(props: FieldProps) {
@@ -7,7 +8,17 @@ function TableSpan(props: FieldProps) {
     <span>{row[field.propName]}</span>
   );
 }
-
+function TableRater(props: FieldProps) {
+  let {row, field} = this.props;
+  let value = row[field.propName];
+  return (
+    <Rate 
+      disabled={true}
+      value={value}
+    />
+  );
+}
 export {
-  TableSpan
+  TableSpan,
+  TableRater
 };
