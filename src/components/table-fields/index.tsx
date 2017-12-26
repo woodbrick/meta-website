@@ -9,7 +9,7 @@ function TableSpan(props: FieldProps) {
   );
 }
 function TableRater(props: FieldProps) {
-  let {row, field} = this.props;
+  let {row, field} = props;
   let value = row[field.propName];
   return (
     <Rate 
