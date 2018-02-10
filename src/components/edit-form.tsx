@@ -39,7 +39,11 @@ function FormItems(props: any) {
   let { data, fields } = props;
   let formItems = fields.map((field: any) => (
     <FormItem label={field.title}>
-      <Input placeholder="placeholder" value={data[field.dataIndex]}/>
+      {
+        field.editType 
+        ? React.createElement(field.editType, {field: field, row: data})
+        : <Input placeholder="placeholder" value={data[field.dataIndex]}/>
+      }
     </FormItem>
   ));
   return (

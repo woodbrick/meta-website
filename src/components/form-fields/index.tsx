@@ -61,8 +61,37 @@ class FormSelect extends React.Component<FormSelectProps, any> {
     );
   }
 }
-export {
+
+class FormInputName extends React.Component<FieldProps, any> {
+  render() {
+    let {row, field} = this.props;
+    let value = row[field.dataIndex];
+    return (
+      <div>
+        <Input 
+          value={value.first}
+          placeholder={field.placeholder}
+          defaultValue={field.defaultValue}
+          addonBefore={field.prefix}
+          addonAfter={field.suffix}
+          size={field.size}
+        />
+        <Input 
+          value={value.last}
+          placeholder={field.placeholder}
+          defaultValue={field.defaultValue}
+          addonBefore={field.prefix}
+          addonAfter={field.suffix}
+          size={field.size}
+        />
+      </div>
+    );
+  }
+}
+
+export default {
   FormInputString,
   FormInputNumber,
-  FormSelect
+  FormInputName,
+  FormSelect,
 };

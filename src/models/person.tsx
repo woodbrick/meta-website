@@ -1,4 +1,5 @@
 import { BackstageModel, BackstageField } from '.';
+import FormInputType from '../components/form-fields';
 
 enum Gender {
   Male,
@@ -17,6 +18,7 @@ const RenderFields: BackstageField[] = [
     dataIndex: 'name',
     sorter: true,
     render: (name: any) => `${name.first} ${name.last}`,
+    editType: FormInputType.FormInputName,
     width: '20%',
   },
   {
