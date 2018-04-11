@@ -29,6 +29,11 @@ const RenderFields: BackstageField[] = [
       { text: 'Female', value: 'female' },
     ],
     width: '20%',
+    editType: FormInputType.FormSelect,
+    options: [
+      { text: 'Male', value: 'male' },
+      { text: 'Female', value: 'female' },
+    ]
   },
   {
     title: 'Email',

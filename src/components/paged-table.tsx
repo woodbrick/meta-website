@@ -48,7 +48,6 @@ class PagedSyncTable extends React.Component<PagedSyncTableProps, PagedSyncTable
     }).then((data: any) => {
       const pagination = { ...this.state.pagination };
       // Read total count from server
-      // pagination.total = data.totalCount;
       pagination.total = 200;
       this.setState({
         loading: false,

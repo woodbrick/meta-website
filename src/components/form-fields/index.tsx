@@ -2,10 +2,14 @@ import * as React from 'react';
 import { Input, InputNumber, Select } from 'antd';
 import { FieldProps } from '../interface';
 
-class FormInputString extends React.Component<FieldProps, any> {
+class FormInput extends React.Component<FieldProps, any> {
+  constructor(props: any) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
   render() {
     let {row, field} = this.props;
-    let value = row[field.propName];
+    let value = row[field.dataIndex];
     return (
       <Input 
         value={value}
@@ -14,14 +18,22 @@ class FormInputString extends React.Component<FieldProps, any> {
         addonBefore={field.prefix}
         addonAfter={field.suffix}
         size={field.size}
+        onChange={this.onChange}
       />
     );
   }
+  onChange(event: any) {
+    let {row, field} = this.props;
+    row[field.dataIndex] = event.target.value;
+    this.setState({
+      row
+    });
+  }
 }
-class FormInputNumber extends React.Component<FieldProps, any> {
+class FormInputNumber extends FormInput {
   render() {
     let {row, field} = this.props;
-    let value = row[field.propName];
+    let value = row[field.dataIndex];
     value = parseInt(value, 10) || 0;
     let defaultValue = parseInt(field.defaultValue || '', 10) || 0;
     
@@ -32,30 +44,34 @@ class FormInputNumber extends React.Component<FieldProps, any> {
         defaultValue={defaultValue}
         formatter={field.formatter}
         size={field.size}
+        onChange={this.onChange}
       />
     );
   }
 }
 
-interface FormSelectProps extends FieldProps {
-  options: {}[];
-}
-class FormSelect extends React.Component<FormSelectProps, any> {
-  handleChange(value: any) {
-    throw `selected ${value}`;
+class FormSelect extends FormInput {
+  onChange(value: any) {
+    let {row, field} = this.props;
+    row[field.dataIndex] = value;
+    this.setState({
+      row
+    });
   }
   render() {
-    let {options, field} = this.props;
+    let {field, row} = this.props;
+    let value = row[field.dataIndex];
     return (
       <Select
+        value={value}
         showSearch={true}
         placeholder={field.placeholder}
         optionFilterProp="children"
-        onChange={this.handleChange}
+        onChange={this.onChange}
         filterOption={(input, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
       >
-        {options.map((entry: any) => (
-          <Select.Option value={entry.key}>{entry.value}</Select.Option>
+        {field.options.map((entry: any) => (
+          <Select.Option key={entry.value} value={entry.value}>{entry.text}</Select.Option>
         ))}
       </Select>
     );
@@ -63,6 +79,11 @@ class FormSelect extends React.Component<FormSelectProps, any> {
 }
 
 class FormInputName extends React.Component<FieldProps, any> {
+  constructor(props: any) {
+    super(props);
+    this.onChangeFirst = this.onChangeFirst.bind(this);
+    this.onChangeLast = this.onChangeLast.bind(this);
+  }
   render() {
     let {row, field} = this.props;
     let value = row[field.dataIndex] || {};
@@ -75,6 +96,7 @@ class FormInputName extends React.Component<FieldProps, any> {
           addonBefore={field.prefix}
           addonAfter={field.suffix}
           size={field.size}
+          onChange={this.onChangeFirst}
         />
         <Input 
           value={value.last}
@@ -83,14 +105,29 @@ class FormInputName extends React.Component<FieldProps, any> {
           addonBefore={field.prefix}
           addonAfter={field.suffix}
           size={field.size}
+          onChange={this.onChangeLast}
         />
       </div>
     );
   }
+  onChangeFirst(event: any) {
+    let {row, field} = this.props;
+    row[field.dataIndex].first = event.target.value;
+    this.setState({
+      row
+    });
+  }
+  onChangeLast(event: any) {
+    let {row, field} = this.props;
+    row[field.dataIndex].last = event.target.value;
+    this.setState({
+      row
+    });
+  }
 }
 
 export default {
-  FormInputString,
+  FormInput,
   FormInputNumber,
   FormInputName,
   FormSelect,

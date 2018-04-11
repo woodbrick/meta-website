@@ -3,7 +3,7 @@ interface Row {
   [propName: string]: any;
 }
 interface Field {
-  propName: string;
+  dataIndex: string;
   defaultValue?: string;
   suffix?: string;
   prefix?: string;
