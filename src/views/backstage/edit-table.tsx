@@ -4,8 +4,7 @@ import PagedTable from '../../components/paged-table';
 import { pageStore } from '../../components/stores';
 import { BackstageModel } from '../../models';
 import EditForm from '../../components/edit-form';
-import { Button } from 'antd';
-import { Divider } from 'antd';
+import { Button, Divider } from 'antd';
 
 interface EditTableProps {
   model: BackstageModel;
@@ -24,7 +23,7 @@ class EditTable extends React.Component<EditTableProps, any> {
           <span className="table-operation">
             <a onClick={pageStore.showModal.bind(null, record)}>Edit</a>
             <Divider type="vertical" />
-            <a href="#">Delete</a>
+            <a >Delete</a>
           </span>
         )
       }

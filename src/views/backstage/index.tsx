@@ -3,18 +3,12 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { Route, Link, Switch } from 'react-router-dom';
 import * as React from 'react';
 import EditTable from './edit-table';
-import { PersonBackstage } from '../../models/person';
+import MenuArr, { MenuInfo } from './menus';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-interface MenuItem {
-  title: string;
-  route: string;
-  [propName: string]: {};
-}
-
-const getMenuList = (arr: Array<MenuItem>) => {
+const getMenuList = (arr: Array<MenuInfo>) => {
   return arr.map((item, index) => (
     <Menu.Item key={index}>
       <Link to={item.route} className="menu-link">
@@ -31,17 +25,26 @@ const getMenuList = (arr: Array<MenuItem>) => {
     </Menu.Item>
   ));
 };
+// function SubMenuList1() {
+//   return (
+//     <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
+//       {getMenuList(MenuArr)}
+//     </SubMenu>
+//   );
+// }
 
-let menuArr = [{
-  title: 'issues',
-  icon: 'list',
-  route: '/backstage/person'
-}, {
-  title: 'folders',
-  icon: 'folder',
-  route: '/backstage/folder'
-}];
-
+function SwitchContent() {
+  let routes = MenuArr.map((menuInfo: MenuInfo, index) => (
+    menuInfo.model !== undefined
+      ? <Route key={index} path={menuInfo.route} component={() => <EditTable model={menuInfo.model} />}/>
+      : <Route key={index} component={NoMatch}/>
+  ));
+  return (
+    <Switch>
+      {routes}
+    </Switch>
+  );
+}
 class Backstage extends React.Component {
   render() {
     return (
@@ -68,7 +71,7 @@ class Backstage extends React.Component {
               style={{ height: '100%', borderRight: 0 }}
             >
               <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
-                {getMenuList(menuArr)}
+                {getMenuList(MenuArr)}
               </SubMenu>
               <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
                 <Menu.Item key="5">option5</Menu.Item>
@@ -91,10 +94,7 @@ class Backstage extends React.Component {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
             <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-              <Switch>
-                <Route path="/backstage/person" component={() => <EditTable model={PersonBackstage} />}/>
-                <Route component={NoMatch}/>
-              </Switch>
+              <SwitchContent />
             </Content>
           </Layout>
         </Layout>

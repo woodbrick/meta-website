@@ -65,7 +65,7 @@ class FormSelect extends React.Component<FormSelectProps, any> {
 class FormInputName extends React.Component<FieldProps, any> {
   render() {
     let {row, field} = this.props;
-    let value = row[field.dataIndex];
+    let value = row[field.dataIndex] || {};
     return (
       <div>
         <Input 
