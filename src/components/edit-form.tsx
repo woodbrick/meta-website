@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal, Form } from 'antd';
-import FormInputType from '../components/form-fields';
+import InputType from '../components/form-fields';
 import { observer, inject } from 'mobx-react';
 
 @inject('pageStore')
@@ -40,9 +40,7 @@ function FormItems(props: any) {
   let { data, fields } = props;
   let formItems = fields.map((field: any) => (
     <FormItem label={field.title} key={field.dataIndex}>
-    {
-      React.createElement(field.editType || FormInputType.FormInput, {field: field, row: data})
-    }
+      {React.createElement(field.editType || InputType.FormInput, {field: field, row: data})}
     </FormItem>
   ));
   return (
